@@ -17,6 +17,7 @@ public class TinkoffMusicPlatformApplication {
 	@Bean
 	public CommandLineRunner run(SongStorage songStorage) {
 		return args -> {
+			songStorage.deleteAll();
 			songStorage.save(Song.builder()
 					.title("tes1").build());
 			songStorage.save(Song.builder().

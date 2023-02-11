@@ -14,6 +14,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class PlaylistSongs {
 
     @Id
@@ -33,16 +34,4 @@ public class PlaylistSongs {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Playlist playlist;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        PlaylistSongs that = (PlaylistSongs) o;
-        return id != null && Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
