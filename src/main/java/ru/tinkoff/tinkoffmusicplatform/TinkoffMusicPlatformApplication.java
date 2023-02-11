@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
-import ru.tinkoff.tinkoffmusicplatform.repository.SongStorage;
+import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
 
 @SpringBootApplication
 public class TinkoffMusicPlatformApplication {
@@ -15,14 +15,14 @@ public class TinkoffMusicPlatformApplication {
 	}
 
 	@Bean
-	public CommandLineRunner run(SongStorage songStorage) {
+	public CommandLineRunner run(SongRepository songRepository) {
 		return args -> {
-			songStorage.deleteAll();
-			songStorage.save(Song.builder()
-					.title("tes1").build());
-			songStorage.save(Song.builder().
+			songRepository.deleteAll();
+			songRepository.save(Song.builder()
+					.title("test1").build());
+			songRepository.save(Song.builder().
 					title("test2").build());
-			songStorage.save(Song.builder().
+			songRepository.save(Song.builder().
 					title("test3").build());
 		};
 	}

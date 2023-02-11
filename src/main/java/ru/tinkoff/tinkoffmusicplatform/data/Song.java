@@ -21,4 +21,10 @@ public class Song {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "author", nullable = false)
+    private String author;
+
+    @Column(name = "genre", nullable = false)
+    private String genre;
+
 }

@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/musicClub
+    url: jdbc:postgresql://localhost:5432/music-platform
     username: postgres
-    password: 2108cret
+    password: g12nokona
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
