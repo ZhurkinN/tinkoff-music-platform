@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  app:
+    image: 'tinkoff-music-platform:latest'
+    build: ./
+    container_name: 'java-app'
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/musicClub
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=2108cret
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgres:
+    image: 'postgres'
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "musicClub"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "2108cret"
