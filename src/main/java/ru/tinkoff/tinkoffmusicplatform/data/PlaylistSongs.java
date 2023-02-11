@@ -2,11 +2,8 @@ package ru.tinkoff.tinkoffmusicplatform.data;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "playlist_songs")

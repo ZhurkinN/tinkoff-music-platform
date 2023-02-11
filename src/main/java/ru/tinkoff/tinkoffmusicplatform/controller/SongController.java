@@ -1,5 +1,6 @@
 package ru.tinkoff.tinkoffmusicplatform.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,15 +10,11 @@ import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.service.SongService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/songs")
 public class SongController {
 
     private final SongService songService;
-
-    public SongController(SongService songService) {
-        this.songService = songService;
-    }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Song> getSongFindById(@PathVariable Integer id) {

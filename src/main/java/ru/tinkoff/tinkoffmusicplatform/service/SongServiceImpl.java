@@ -1,19 +1,16 @@
 package ru.tinkoff.tinkoffmusicplatform.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
 
 @Service
+@RequiredArgsConstructor
 public class SongServiceImpl implements SongService {
 
     private final SongRepository songRepository;
-
-
-    public SongServiceImpl(SongRepository songRepository) {
-        this.songRepository = songRepository;
-    }
 
     @Override
     public ResponseEntity<Iterable<Song>> getAllSongs() {
