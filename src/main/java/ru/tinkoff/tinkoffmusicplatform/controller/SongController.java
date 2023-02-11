@@ -6,29 +6,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
-import ru.tinkoff.tinkoffmusicplatform.repository.SongStorage;
+import ru.tinkoff.tinkoffmusicplatform.service.SongService;
 
 @RestController
 @RequestMapping("/api/v1/songs")
 public class SongController {
 
-    private final SongStorage songStorage;
+    private final SongService songService;
 
-    public SongController(SongStorage songStorage) {
-        this.songStorage = songStorage;
+    public SongController(SongService songService) {
+        this.songService = songService;
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Song> getSongsFindById(@PathVariable Integer id) {
-        if (songStorage.findById(id).isPresent()) {
-            return ResponseEntity.ok(songStorage.findById(id).get());
-        } else {
-            return ResponseEntity.badRequest().body(Song.builder().title("null").build());
-        }
+    public ResponseEntity<Song> getSongFindById(@PathVariable Integer id) {
+        return this.songService.getSongById(id);
     }
 
     @GetMapping
     public ResponseEntity<Iterable<Song>> getSongs() {
-        return ResponseEntity.ok(songStorage.findAll());
+        return this.songService.getAllSongs();
     }
 }
