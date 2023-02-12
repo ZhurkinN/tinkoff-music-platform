@@ -17,12 +17,12 @@ public class SongController {
     private final SongService songService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Song> getSongFindById(@PathVariable Integer id) {
-        return this.songService.getSongById(id);
+    public ResponseEntity<Song> getSongById(@PathVariable Long id) {
+        return ResponseEntity.ok(songService.getSongById(id));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<Iterable<Song>> getSongs() {
-        return this.songService.getAllSongs();
+        return ResponseEntity.ok(songService.getAllSongs());
     }
 }
