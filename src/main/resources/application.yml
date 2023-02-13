@@ -1,3 +1,4 @@
+# Spring
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/music-platform
@@ -14,3 +15,16 @@ spring:
     user:
       name: user
       password: 333
+
+# Minio
+minio:
+  bucket:
+    name:
+      minio-tinkoff-music-platform
+  access:
+    key:
+      minioadmin
+    secret:
+      minioadmin
+  url:
+    https://play.min.io
