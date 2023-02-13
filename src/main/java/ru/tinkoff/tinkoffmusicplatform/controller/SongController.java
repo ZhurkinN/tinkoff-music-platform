@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/songs")
+@RequestMapping("/api/v1")
 public class SongController {
 
     private final SongService songService;
@@ -18,27 +18,27 @@ public class SongController {
         this.songService = songService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/songs/{id}")
     public Song getSongFindById(@PathVariable Long id) {
         return this.songService.getSongById(id);
     }
 
-    @GetMapping
+    @GetMapping("/songs")
     public List<Song> getSongs() {
         return this.songService.getAllSongs();
     }
 
-    @PostMapping
+    @PostMapping("/songs")
     public Song createSong(@RequestBody Song song) throws URISyntaxException {
         return this.songService.createSong(song);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/songs/{id}")
     public Song updateSong(@PathVariable Long id, @RequestBody Song song) {
         return this.songService.updateSong(id, song);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("{/songs/id}")
     public Song deleteSong(@PathVariable Long id) {
         return this.songService.deleteSong(id);
     }
