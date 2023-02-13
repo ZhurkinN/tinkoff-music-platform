@@ -1,9 +1,8 @@
-# Spring
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/music-platform
     username: postgres
-    password: 2108cret
+    password: g12nokona
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -15,16 +14,3 @@ spring:
     user:
       name: user
       password: 333
-
-# Minio
-minio:
-  bucket:
-    name:
-      minio-tinkoff-music-platform
-  access:
-    key:
-      dominion
-    secret:
-      dominion
-  url:
-    https://play.min.io

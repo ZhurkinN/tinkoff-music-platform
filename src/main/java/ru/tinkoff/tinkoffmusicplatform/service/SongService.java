@@ -1,20 +1,11 @@
 package ru.tinkoff.tinkoffmusicplatform.service;
 
+import org.springframework.http.ResponseEntity;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
-import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
-
-import java.net.URISyntaxException;
-import java.util.List;
 
 public interface SongService {
 
-    List<Song> getAllSongs();
+    ResponseEntity<Iterable<Song>> getAllSongs();
 
-    Song getSongById(Long id) throws SongNotFoundException;
-
-    Song createSong(Song song) throws URISyntaxException;
-
-    Song updateSong(Long id, Song song);
-
-    Song deleteSong(Long id);
+    ResponseEntity<Song> getSongById(Integer id);
 }
