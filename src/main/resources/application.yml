@@ -23,8 +23,8 @@ minio:
       minio-tinkoff-music-platform
   access:
     key:
-      minioadmin
+      dominion
     secret:
-      minioadmin
+      dominion
   url:
     https://play.min.io
