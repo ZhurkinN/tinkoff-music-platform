@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 
 @Repository
-public interface SongRepository extends CrudRepository<Song, Integer> {
+public interface SongRepository extends CrudRepository<Song, Long> {
 
     public Iterable<Song> findAllByOrderByGenre();
 

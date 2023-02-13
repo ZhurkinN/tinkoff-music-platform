@@ -1,3 +1,5 @@
+package ru.tinkoff.tinkoffmusicplatform.controller;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ public class SongController {
     private final SongService songService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Song> getSongFindById(@PathVariable Integer id) {
+    public ResponseEntity<Song> getSongFindById(@PathVariable Long id) {
         return this.songService.getSongById(id);
     }
 

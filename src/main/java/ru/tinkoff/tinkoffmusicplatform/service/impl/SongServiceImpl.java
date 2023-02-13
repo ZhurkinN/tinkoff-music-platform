@@ -57,7 +57,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public ResponseEntity<Song> getSongById(Integer id) {
+    public ResponseEntity<Song> getSongById(Long id) {
         if (songRepository.findById(id).isPresent()) {
             return ResponseEntity.ok(songRepository.findById(id).get());
         } else {
