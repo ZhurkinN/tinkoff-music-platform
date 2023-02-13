@@ -18,4 +18,6 @@ public interface SongService {
     ResponseEntity<Song> getSongById(Integer id);
 
     void save(Song song);
+
+    void deleteByTitleAndAuthor(String title, String author);
 }

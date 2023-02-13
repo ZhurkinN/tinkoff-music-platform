@@ -15,4 +15,6 @@ public interface SongRepository extends CrudRepository<Song, Integer> {
 
     public Iterable<Song> findByGenre(String genre);
 
+    public void deleteSongByTitleAndAuthor(String title, String author);
+
 }

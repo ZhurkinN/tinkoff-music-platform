@@ -69,5 +69,10 @@ public class SongServiceImpl implements SongService {
     public void save(Song song) {
         songRepository.save(song);
     }
+
+    @Override
+    public void deleteByTitleAndAuthor(String title, String author) {
+        songRepository.deleteSongByTitleAndAuthor(title, author);
+    }
 }
 

@@ -1,8 +1,12 @@
+package ru.tinkoff.tinkoffmusicplatform.controller;
+
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
 import ru.tinkoff.tinkoffmusicplatform.service.SongService;
 
 @RestController
@@ -50,11 +54,40 @@ public class SongController {
         return songService.getSongsByGenre(genre);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity save(@RequestBody Song song){
+    @PostMapping
+    public ResponseEntity<ResponseMessageDTO> save(@RequestBody Song song){
+        ResponseMessageDTO responseMessageDTO = new ResponseMessageDTO();
 
-        songService.save(song);
+        try{
+            songService.save(song);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+            responseMessageDTO.setMessage("Song was added");
+
+            return ResponseEntity.ok(responseMessageDTO);
+        }
+        catch (Exception e){
+            responseMessageDTO.setMessage("Song wasn't added");
+
+            return ResponseEntity.badRequest().body(responseMessageDTO);
+        }
     }
+
+//    @DeleteMapping
+//    public ResponseEntity<ResponseMessageDTO> delete(@RequestBody Song song){
+//        ResponseMessageDTO responseMessageDTO = new ResponseMessageDTO();
+//
+//        try{
+//            songService.deleteByTitleAndAuthor(song.getTitle(), song.getAuthor());
+//
+//            responseMessageDTO.setMessage("Song was deleted");
+//
+//            return ResponseEntity.ok(responseMessageDTO);
+//        }
+//        catch (Exception e){
+//            responseMessageDTO.setMessage("Song wasn't deleted");
+//
+//            return ResponseEntity.badRequest().body(responseMessageDTO);
+//        }
+//    }
+
 }
