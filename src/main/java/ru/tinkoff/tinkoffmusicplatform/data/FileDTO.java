@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
