@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/music-platform
     username: postgres
-    password: g12nokona
+    password: 2108cret
   jpa:
     hibernate:
       ddl-auto: create-drop

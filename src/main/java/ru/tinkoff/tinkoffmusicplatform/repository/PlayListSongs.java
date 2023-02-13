@@ -1,12 +1,10 @@
 package ru.tinkoff.tinkoffmusicplatform.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.tinkoffmusicplatform.data.Song;
+import ru.tinkoff.tinkoffmusicplatform.data.PlaylistSongs;
 
 @Repository
-public interface SongRepository extends JpaRepository<Song, Long> {
-
+public interface PlayListSongs extends JpaRepository<PlaylistSongs, Long> {
 
 }
