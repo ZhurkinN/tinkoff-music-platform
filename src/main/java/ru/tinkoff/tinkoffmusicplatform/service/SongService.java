@@ -1,10 +1,11 @@
 package ru.tinkoff.tinkoffmusicplatform.service;
 
+import org.springframework.http.ResponseEntity;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 
 public interface SongService {
 
-    Iterable<Song> getAllSongs();
+    ResponseEntity<Iterable<Song>> getAllSongs();
 
-    Song getSongById(Long id);
+    ResponseEntity<Song> getSongById(Integer id);
 }

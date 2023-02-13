@@ -1,10 +1,10 @@
-package ru.tinkoff.tinkoffmusicplatform.service.impl;
+package ru.tinkoff.tinkoffmusicplatform.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
-import ru.tinkoff.tinkoffmusicplatform.service.SongService;
 
 @Service
 @RequiredArgsConstructor
@@ -13,17 +13,16 @@ public class SongServiceImpl implements SongService {
     private final SongRepository songRepository;
 
     @Override
-    public Iterable<Song> getAllSongs() {
-        return songRepository.findAll();
+    public ResponseEntity<Iterable<Song>> getAllSongs() {
+        return ResponseEntity.ok(songRepository.findAll());
     }
 
     @Override
-    public Song getSongById(Long id) {
-
+    public ResponseEntity<Song> getSongById(Integer id) {
         if (songRepository.findById(id).isPresent()) {
-            return songRepository.findById(id).get();
+            return ResponseEntity.ok(songRepository.findById(id).get());
         } else {
-            return Song.builder().title("null").build();
+            return ResponseEntity.badRequest().body(Song.builder().title("null").build());
         }
     }
 }
