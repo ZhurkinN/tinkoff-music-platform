@@ -6,9 +6,6 @@ import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
 
-import javax.swing.tree.RowMapper;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class SongServiceImpl implements SongService {
