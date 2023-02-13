@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.List;
+
 @Entity
 @Table(name = "playlist_songs")
 @Getter
@@ -21,12 +23,12 @@ public class PlaylistSongs {
     @Column(nullable = false, name = "song_position")
     private Integer songPosition;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Song song;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Playlist playlist;
