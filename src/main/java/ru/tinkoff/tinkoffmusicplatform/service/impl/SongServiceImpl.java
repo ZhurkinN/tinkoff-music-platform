@@ -1,4 +1,4 @@
-package ru.tinkoff.tinkoffmusicplatform.service;
+package ru.tinkoff.tinkoffmusicplatform.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
+import ru.tinkoff.tinkoffmusicplatform.service.SongService;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
@@ -70,3 +70,4 @@ public class SongServiceImpl implements SongService {
         songRepository.save(song);
     }
 }
+

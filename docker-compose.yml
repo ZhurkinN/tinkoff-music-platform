@@ -26,3 +26,16 @@ services:
       POSTGRES_DB: "musicClub"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "2108cret"
+
+  minio:
+    restart: always
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio124
+    command: server/export
+    volumes:
+      - /mnt/hdd/minio/data:/export
+      - /mnt/hdd/minio/config:/root/
