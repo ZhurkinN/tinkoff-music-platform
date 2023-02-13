@@ -2,16 +2,16 @@ package ru.tinkoff.tinkoffmusicplatform.data;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
-
-import java.util.Objects;
+import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "playlist")
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 public class Playlist {
 
