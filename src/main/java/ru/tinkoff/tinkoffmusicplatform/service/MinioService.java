@@ -13,7 +13,7 @@ import ru.tinkoff.tinkoffmusicplatform.data.FileDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 @Slf4j
 @RequiredArgsConstructor
 public class MinioService {

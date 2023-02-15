@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.tinkoff.tinkoffmusicplatform.data.Playlist;
 import ru.tinkoff.tinkoffmusicplatform.data.PlaylistSongs;
+import ru.tinkoff.tinkoffmusicplatform.data.Song;
 
 import java.util.List;
 
@@ -15,5 +16,8 @@ public interface PlaylistSongsRepository extends JpaRepository<PlaylistSongs, Lo
             "FROM playlist_songs " +
             "WHERE playlist_songs.playlist_id = ?1", nativeQuery = true)
     Integer getLastSongPosition(Long playlistId);
+
     List<PlaylistSongs> getPlaylistSongsByPlaylist(Playlist playlist);
+
+    List<PlaylistSongs> getPlaylistSongsByPlaylistAndSong(Playlist playlist, Song song);
 }

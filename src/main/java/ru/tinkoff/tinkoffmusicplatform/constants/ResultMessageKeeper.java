@@ -8,4 +8,5 @@ public class ResultMessageKeeper {
 
     public static final String PLAYLIST_WAS_CREATED = "Playlist was created successfully!";
     public static final String SONG_WAS_ADDED = "Song was added to playlist!";
+    public static final String SONG_WAS_DELETED = "Song was deleted from playlist!";
 }

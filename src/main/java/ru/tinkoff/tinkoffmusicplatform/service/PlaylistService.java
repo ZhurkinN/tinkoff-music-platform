@@ -1,8 +1,20 @@
 package ru.tinkoff.tinkoffmusicplatform.service;
 
+import ru.tinkoff.tinkoffmusicplatform.data.Playlist;
+
+import java.util.List;
+
 public interface PlaylistService {
 
-    void savePlaylist(Long id, String title, String description);
+    List<Playlist> getAllPlaylists();
 
-    void addPlaylistsSong(Long songId, Long playlistId);
+    void savePlaylist(Long id,
+                      String title,
+                      String description);
+
+    void addPlaylistsSong(Long songId,
+                          Long playlistId);
+
+    void deletePlaylistSong(Long songId,
+                            Long playlistId);
 }
