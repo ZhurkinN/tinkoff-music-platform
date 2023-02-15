@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/music-platform
     username: postgres
-    password: g12nokona
+    password: 2108cret
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -10,7 +10,16 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-  security:
-    user:
-      name: user
-      password: 333
+
+minio:
+  url:
+    http://127.0.0.1:9000
+  bucket:
+    name:
+      tinkoff-music-platform
+  access:
+    key:
+      minioadmin
+    secret:
+        minioadmin
+
