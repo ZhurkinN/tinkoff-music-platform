@@ -34,8 +34,8 @@ services:
     ports:
       - "9000:9000"
     environment:
-      MINIO_ACCESS_KEY: toptima
-      MINIO_SECRET_KEY: test123
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
     command: server/export
     volumes:
       - /mnt/hdd/minio/data:/export
