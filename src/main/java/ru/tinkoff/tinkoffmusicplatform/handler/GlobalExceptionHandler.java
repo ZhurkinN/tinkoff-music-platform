@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.tinkoff.tinkoffmusicplatform.data.ApplicationError;
 import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @ControllerAdvice
 @Slf4j
@@ -18,6 +18,6 @@ public class GlobalExceptionHandler {
             SongNotFoundException e
     ) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new ApplicationError(NOT_FOUND.value(), e.getMessage()), NOT_FOUND);
+        return new ResponseEntity<>(new ApplicationError(BAD_REQUEST.value(), e.getMessage()), BAD_REQUEST);
     }
 }
