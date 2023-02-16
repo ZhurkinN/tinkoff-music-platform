@@ -1,5 +1,6 @@
 package ru.tinkoff.tinkoffmusicplatform.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -8,15 +9,15 @@ import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import java.util.List;
 
 @Repository
-public interface SongRepository extends CrudRepository<Song, Long> {
+public interface SongRepository extends JpaRepository<Song, Long> {
 
-    public Iterable<Song> findAllByOrderByGenre();
+    List<Song> findAllByOrderByGenre();
 
-    public Iterable<Song> findByTitle(String title);
+    List<Song> findByTitle(String title);
 
-    public Iterable<Song> findByAuthor(String author);
+    List<Song> findByAuthor(String author);
 
-    public Iterable<Song> findByGenre(String genre);
+    List<Song> findByGenre(String genre);
 
     @Query(value = "select song.* " +
             "from song " +

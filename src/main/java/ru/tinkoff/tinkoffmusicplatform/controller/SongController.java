@@ -1,11 +1,16 @@
 package ru.tinkoff.tinkoffmusicplatform.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
+import ru.tinkoff.tinkoffmusicplatform.dto.songDto.DeleteSongDTO;
 import ru.tinkoff.tinkoffmusicplatform.service.SongService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,44 +24,66 @@ public class SongController {
         return this.songService.getSongById(id);
     }
 
-// Этим вариантом можно упаковать возврат треков без сортировки и с сортировкой
-//    @GetMapping
-//    public ResponseEntity<Iterable<Song>> getSongs
-//            (@RequestParam(value = "sort", required = false, defaultValue = "false") boolean isSort) {
-//        return isSort ? this.songService.getAllSongsSortedByGenre() : this.songService.getAllSongs();
-//    }
-
-
     @GetMapping
-    public ResponseEntity<Iterable<Song>> getSongs() {
+    public ResponseEntity<List<Song>> getSongs() {
         return this.songService.getAllSongs();
     }
 
     @GetMapping("/sorted")
-    public ResponseEntity<Iterable<Song>> getSongsSortedByGenre(){
+    public ResponseEntity<List<Song>> getSongsSortedByGenre(){
         return songService.getAllSongsSortedByGenre();
     }
 
     @GetMapping("/title/{title}")
-    public ResponseEntity<Iterable<Song>> getSongsByTitle(@PathVariable("title") String title){
+    public ResponseEntity<List<Song>> getSongsByTitle(@PathVariable("title") String title){
         return songService.getSongsByTitle(title);
     }
 
     @GetMapping("/author/{author}")
-    public ResponseEntity<Iterable<Song>> getSongsByAuthor(@PathVariable("author") String author){
+    public ResponseEntity<List<Song>> getSongsByAuthor(@PathVariable("author") String author){
         return songService.getSongsByAuthor(author);
     }
 
     @GetMapping("/genre/{genre}")
-    public ResponseEntity<Iterable<Song>> getSongsByGenre(@PathVariable("genre") String genre){
+    public ResponseEntity<List<Song>> getSongsByGenre(@PathVariable("genre") String genre){
         return songService.getSongsByGenre(genre);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity save(@RequestBody Song song){
+    @PostMapping
+    public ResponseEntity<ResponseMessageDTO> save(@RequestBody Song song){
+        ResponseMessageDTO responseMessageDTO = new ResponseMessageDTO();
 
-        songService.save(song);
+        try{
+            songService.save(song);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+            responseMessageDTO.setMessage("Song was added");
+
+            return ResponseEntity.ok(responseMessageDTO);
+        }
+        catch (Exception e){
+            responseMessageDTO.setMessage("Song wasn't added");
+
+            return ResponseEntity.badRequest().body(responseMessageDTO);
+        }
     }
+
+    @DeleteMapping
+    public ResponseEntity<ResponseMessageDTO> delete(@RequestBody DeleteSongDTO song){
+        ResponseMessageDTO responseMessageDTO = new ResponseMessageDTO();
+
+        try{
+
+            songService.deleteById(song.getSongId());
+
+            responseMessageDTO.setMessage("Song was deleted");
+
+            return ResponseEntity.ok(responseMessageDTO);
+        }
+        catch (Exception e){
+            responseMessageDTO.setMessage("Song wasn't deleted");
+
+            return ResponseEntity.badRequest().body(responseMessageDTO);
+        }
+    }
+
 }
