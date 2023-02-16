@@ -1,15 +1,16 @@
 package ru.tinkoff.tinkoffmusicplatform.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.tinkoff.tinkoffmusicplatform.data.Playlist;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class ResponseMessageDTO {
+public class PlaylistsDTO {
 
-    String message;
-
+    private List<Playlist> playlists;
 }

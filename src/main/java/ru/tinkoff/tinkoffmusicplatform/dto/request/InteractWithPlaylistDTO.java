@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddSongToPlaylistDTO {
+public class InteractWithPlaylistDTO {
 
     private Long songId;
     private Long playlistId;

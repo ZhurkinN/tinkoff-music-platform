@@ -2,15 +2,15 @@ package ru.tinkoff.tinkoffmusicplatform.data;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.List;
 
 @Entity
 @Table(name = "playlist_songs")
 @Getter
 @Setter
+@Accessors(chain = true)
 @ToString
 @RequiredArgsConstructor
 @EqualsAndHashCode

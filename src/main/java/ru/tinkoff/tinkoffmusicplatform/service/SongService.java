@@ -15,7 +15,7 @@ public interface SongService {
 
     ResponseEntity<Iterable<Song>> getSongsByGenre(String genre);
 
-    ResponseEntity<Song> getSongById(Integer id);
+    ResponseEntity<Song> getSongById(Long id);
 
     void save(Song song);
 }
