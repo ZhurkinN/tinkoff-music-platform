@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.tinkoffmusicplatform.data.Playlist;
 import ru.tinkoff.tinkoffmusicplatform.data.PlaylistSongs;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.PlaylistsSongsDTO;
 import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
 import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundInPlaylistException;
 import ru.tinkoff.tinkoffmusicplatform.repository.PlaylistRepository;
@@ -13,6 +14,7 @@ import ru.tinkoff.tinkoffmusicplatform.repository.PlaylistSongsRepository;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
 import ru.tinkoff.tinkoffmusicplatform.service.PlaylistService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -31,6 +33,24 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public List<Playlist> getAllPlaylists() {
         return playlistRepository.findAll();
+    }
+
+    @Override
+    public List<PlaylistsSongsDTO> getPlaylistsSongs(Long playlistId) {
+
+        List<PlaylistsSongsDTO> playlistsSongsDTOS = new ArrayList<>();
+        List<Song> songs = songRepository.findSongByPlaylistId(playlistId);
+
+        for (Song song : songs) {
+            PlaylistsSongsDTO dto = new PlaylistsSongsDTO()
+                    .setSong(song)
+                    .setSongPosition(playlistSongsRepository
+                            .getSongPositionBySongAndPlaylist(song.getId(), playlistId));
+
+            playlistsSongsDTOS.add(dto);
+        }
+
+        return playlistsSongsDTOS;
     }
 
     @Override

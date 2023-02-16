@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.tinkoffmusicplatform.service.MinioService;
 
 @Slf4j
-//@RestController
-//@RequestMapping("/file")
+@RestController
+@RequestMapping("/file")
 @RequiredArgsConstructor
 public class MinioController {
 

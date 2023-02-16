@@ -3,12 +3,16 @@ package ru.tinkoff.tinkoffmusicplatform.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.dto.request.InteractWithPlaylistDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.request.PlaylistBodyDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.PlaylistsDTO;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.PlaylistsSongsDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
 import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
 import ru.tinkoff.tinkoffmusicplatform.service.PlaylistService;
+
+import java.util.List;
 
 import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.PLAYLIST_NOT_CREATED;
 import static ru.tinkoff.tinkoffmusicplatform.constants.ResultMessageKeeper.*;
@@ -25,6 +29,12 @@ public class PlaylistController {
         PlaylistsDTO responseDTO = new PlaylistsDTO();
         responseDTO.setPlaylists(playlistService.getAllPlaylists());
         return  ResponseEntity.ok(responseDTO);
+    }
+
+    @GetMapping("/{playlistId}")
+    public ResponseEntity<List<PlaylistsSongsDTO>> getPlaylistsSongs(@PathVariable Long playlistId) {
+
+        return ResponseEntity.ok(playlistService.getPlaylistsSongs(playlistId));
     }
 
     @PostMapping
