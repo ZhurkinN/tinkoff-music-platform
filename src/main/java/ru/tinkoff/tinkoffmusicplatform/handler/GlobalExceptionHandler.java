@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.tinkoff.tinkoffmusicplatform.data.ApplicationError;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.ApplicationErrorDTO;
 import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -14,10 +14,10 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ApplicationError> catchResourceNotFoundException(
+    public ResponseEntity<ApplicationErrorDTO> catchResourceNotFoundException(
             SongNotFoundException e
     ) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new ApplicationError(BAD_REQUEST.value(), e.getMessage()), BAD_REQUEST);
+        return new ResponseEntity<>(new ApplicationErrorDTO(BAD_REQUEST.value(), e.getMessage()), BAD_REQUEST);
     }
 }

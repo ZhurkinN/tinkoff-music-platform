@@ -1,4 +1,4 @@
-package ru.tinkoff.tinkoffmusicplatform.dto.songDto;
+package ru.tinkoff.tinkoffmusicplatform.dto.request;
 
 
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DeleteSongDTO {
+public class InteractWithSongDTO {
 
     private Long songId;
 

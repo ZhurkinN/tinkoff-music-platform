@@ -3,13 +3,11 @@ package ru.tinkoff.tinkoffmusicplatform.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.dto.request.InteractWithPlaylistDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.request.PlaylistBodyDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.PlaylistsDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.PlaylistsSongsDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
-import ru.tinkoff.tinkoffmusicplatform.exception.SongNotFoundException;
 import ru.tinkoff.tinkoffmusicplatform.service.PlaylistService;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class PlaylistController {
     public ResponseEntity<PlaylistsDTO> getAllPlaylists() {
         PlaylistsDTO responseDTO = new PlaylistsDTO();
         responseDTO.setPlaylists(playlistService.getAllPlaylists());
-        return  ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping("/{playlistId}")
@@ -48,38 +46,28 @@ public class PlaylistController {
         } catch (Exception e) {
 
             responseDTO.setMessage(PLAYLIST_NOT_CREATED);
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseEntity
+                    .badRequest()
+                    .body(responseDTO);
         }
     }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseMessageDTO> addSongToPlaylist(@RequestBody InteractWithPlaylistDTO requestDTO) {
         ResponseMessageDTO responseDTO = new ResponseMessageDTO();
+        playlistService.addPlaylistsSong(requestDTO.getSongId(), requestDTO.getPlaylistId());
+        responseDTO.setMessage(SONG_WAS_ADDED_TO_PLAYLIST);
 
-        try {
-            playlistService.addPlaylistsSong(requestDTO.getSongId(), requestDTO.getPlaylistId());
-            responseDTO.setMessage(SONG_WAS_ADDED);
-            return ResponseEntity.ok(responseDTO);
-        } catch (SongNotFoundException e) {
-
-            responseDTO.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
+        return ResponseEntity.ok(responseDTO);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseMessageDTO> deleteSongFromPlaylist(@RequestBody InteractWithPlaylistDTO requestDTO)  {
+    public ResponseEntity<ResponseMessageDTO> deleteSongFromPlaylist(@RequestBody InteractWithPlaylistDTO requestDTO) {
         ResponseMessageDTO responseDTO = new ResponseMessageDTO();
+        playlistService.deletePlaylistSong(requestDTO.getSongId(), requestDTO.getPlaylistId());
+        responseDTO.setMessage(SONG_WAS_DELETED_FROM_PLAYLIST);
 
-        try {
-            playlistService.deletePlaylistSong(requestDTO.getSongId(), requestDTO.getPlaylistId());
-            responseDTO.setMessage(SONG_WAS_DELETED);
-            return ResponseEntity.ok(responseDTO);
-        } catch (SongNotFoundException e) {
-
-            responseDTO.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
+        return ResponseEntity.ok(responseDTO);
     }
 
 }

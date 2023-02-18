@@ -1,4 +1,4 @@
-package ru.tinkoff.tinkoffmusicplatform.dto.request;
+package ru.tinkoff.tinkoffmusicplatform.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -18,7 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FileDto implements Serializable {
+public class FileDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 232836038145089522L;

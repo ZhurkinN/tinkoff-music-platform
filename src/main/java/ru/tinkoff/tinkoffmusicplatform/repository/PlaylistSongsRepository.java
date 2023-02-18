@@ -8,6 +8,7 @@ import ru.tinkoff.tinkoffmusicplatform.data.PlaylistSongs;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlaylistSongsRepository extends JpaRepository<PlaylistSongs, Long> {
@@ -20,11 +21,16 @@ public interface PlaylistSongsRepository extends JpaRepository<PlaylistSongs, Lo
 
     List<PlaylistSongs> getPlaylistSongsByPlaylist(Playlist playlist);
 
-    List<PlaylistSongs> getPlaylistSongsByPlaylistAndSong(Playlist playlist, Song song);
+    List<PlaylistSongs> getPlaylistSongsByPlaylistAndSong(Playlist playlist,
+                                                          Song song);
 
     @Query(value = "select song_position " +
             "from playlist_songs " +
             "where song_id = ?1 and playlist_id = ?2",
             nativeQuery = true)
-    Integer getSongPositionBySongAndPlaylist(Long songId, Long playlistId);
+    Integer getSongPositionBySongAndPlaylist(Long songId,
+                                             Long playlistId);
+
+    Optional<PlaylistSongs> findBySongIdAndPlaylistId(Long songId,
+                                                      Long playlistId);
 }

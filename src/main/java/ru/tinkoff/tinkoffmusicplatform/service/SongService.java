@@ -1,25 +1,27 @@
 package ru.tinkoff.tinkoffmusicplatform.service;
 
-import org.springframework.http.ResponseEntity;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 
 import java.util.List;
 
 public interface SongService {
 
-    ResponseEntity<List<Song>> getAllSongs();
+    List<Song> getAllSongs();
 
-    ResponseEntity<List<Song>> getAllSongsSortedByGenre();
+    Song getSongById(Long id);
 
-    ResponseEntity<List<Song>> getSongsByTitle(String title);
+    List<Song> getSongsByTitle(String title);
 
-    ResponseEntity<List<Song>> getSongsByAuthor(String author);
+    List<Song> getSongsByAuthor(String author);
 
-    ResponseEntity<List<Song>> getSongsByGenre(String genre);
+    List<Song> getSongsByGenre(String genre);
 
-    ResponseEntity<Song> getSongById(Long id);
+    List<Song> getSongsSortedByGenre();
 
-    void save(Song song);
+    void save(Long id,
+              String title,
+              String author,
+              String genre);
 
     void deleteById(Long id);
 }

@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.SONG_NOT_FOUND_IN_PLAYLIST;
-import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.SONG_OR_PLAYLIST_NOT_FOUND;
+import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.*;
 
 @Service
 @RequiredArgsConstructor
@@ -73,6 +72,10 @@ public class PlaylistServiceImpl implements PlaylistService {
         Optional<Song> song = songRepository.findById(songId);
 
         if (playlist.isPresent() && song.isPresent()) {
+
+            if (playlistSongsRepository.findBySongIdAndPlaylistId(songId, playlistId).isPresent()) {
+                throw new SongNotFoundInPlaylistException(SONG_ALREADY_ADDED);
+            }
 
             int newSongPosition = 1;
             if (!playlistSongsRepository

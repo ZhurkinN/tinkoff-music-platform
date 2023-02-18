@@ -1,19 +1,22 @@
 package ru.tinkoff.tinkoffmusicplatform.data;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "playlist_songs")
 @Getter
 @Setter
 @Accessors(chain = true)
-@ToString
 @RequiredArgsConstructor
-@EqualsAndHashCode
 public class PlaylistSongs {
 
     @Id
@@ -33,4 +36,16 @@ public class PlaylistSongs {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Playlist playlist;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        PlaylistSongs that = (PlaylistSongs) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

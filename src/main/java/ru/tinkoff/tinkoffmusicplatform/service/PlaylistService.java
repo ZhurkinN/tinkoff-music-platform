@@ -1,7 +1,6 @@
 package ru.tinkoff.tinkoffmusicplatform.service;
 
 import ru.tinkoff.tinkoffmusicplatform.data.Playlist;
-import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.PlaylistsSongsDTO;
 
 import java.util.List;

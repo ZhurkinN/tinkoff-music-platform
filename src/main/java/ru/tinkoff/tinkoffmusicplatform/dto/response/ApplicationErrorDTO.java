@@ -1,4 +1,4 @@
-package ru.tinkoff.tinkoffmusicplatform.data;
+package ru.tinkoff.tinkoffmusicplatform.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationError {
+public class ApplicationErrorDTO {
 
     private int statusCode;
 

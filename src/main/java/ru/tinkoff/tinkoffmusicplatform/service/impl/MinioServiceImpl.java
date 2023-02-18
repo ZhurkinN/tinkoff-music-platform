@@ -7,11 +7,13 @@ import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.tinkoff.tinkoffmusicplatform.dto.request.FileDto;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.FileDTO;
 import ru.tinkoff.tinkoffmusicplatform.service.MinioService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.MINIO_OBJECTS_ERROR;
 
 @Slf4j
 @Service
@@ -28,15 +30,15 @@ public class MinioServiceImpl implements MinioService {
 
 
     @Override
-    public List<FileDto> getListObjects() {
-        List<FileDto> objects = new ArrayList<>();
+    public List<FileDTO> getListObjects() {
+        List<FileDTO> objects = new ArrayList<>();
         try {
             Iterable<Result<Item>> result = minioClient.listObjects(ListObjectsArgs.builder()
                     .bucket(bucketName)
                     .recursive(true)
                     .build());
             for (Result<Item> item : result) {
-                objects.add(FileDto.builder()
+                objects.add(FileDTO.builder()
                         .filename(item.get().objectName())
                         .size(item.get().size())
                         .url(getPreSignedUrl(item.get().objectName()))
@@ -44,7 +46,7 @@ public class MinioServiceImpl implements MinioService {
             }
             return objects;
         } catch (Exception e) {
-            log.error("Happened error when get list objects from minio: ", e);
+            log.error(MINIO_OBJECTS_ERROR, e);
         }
 
         return objects;
