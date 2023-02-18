@@ -28,6 +28,8 @@ public class SongServiceImpl implements SongService {
 
         Optional<Song> song = songRepository.findById(id);
         if (song.isPresent()) {
+            song.get().setNumberOfPlays(song.get().getNumberOfPlays() + 1);
+            songRepository.save(song.get());
             return song.get();
         } else {
             throw new SongNotFoundException(SONG_WITH_THIS_ID_NOT_FOUND);
@@ -75,7 +77,8 @@ public class SongServiceImpl implements SongService {
                 .setId(id)
                 .setTitle(title)
                 .setAuthor(author)
-                .setGenre(genre);
+                .setGenre(genre)
+                .setNumberOfPlays(0);
 
         songRepository.save(song);
     }

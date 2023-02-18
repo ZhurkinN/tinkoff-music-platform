@@ -30,6 +30,9 @@ public class Song {
     @Column(name = "genre", nullable = false)
     private String genre;
 
+    @Column(name = "number_of_plays", nullable = false)
+    private int numberOfPlays;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,4 +45,6 @@ public class Song {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 }
