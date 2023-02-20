@@ -8,6 +8,8 @@ public interface MinioService {
 
     List<FileDTO> getListObjects();
 
-    String getPreSignedUrl(String filename);
+    void getSongFilesById(Long songId) throws Exception;
+
+    String getPreSignedUrl(String fileName);
 
 }

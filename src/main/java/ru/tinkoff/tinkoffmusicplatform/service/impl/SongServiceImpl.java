@@ -70,12 +70,16 @@ public class SongServiceImpl implements SongService {
     public void save(Long id,
                      String title,
                      String author,
-                     String genre) {
+                     String genre,
+                     String fileName,
+                     String pictureName) {
         Song song = new Song()
                 .setId(id)
                 .setTitle(title)
                 .setAuthor(author)
-                .setGenre(genre);
+                .setGenre(genre)
+                .setFileName(fileName)
+                .setPictureName(pictureName);
 
         songRepository.save(song);
     }

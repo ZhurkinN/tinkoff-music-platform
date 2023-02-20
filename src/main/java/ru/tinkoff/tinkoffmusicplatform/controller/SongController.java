@@ -70,7 +70,9 @@ public class SongController {
             songService.save(requestDTO.id(),
                     requestDTO.title(),
                     requestDTO.author(),
-                    requestDTO.genre());
+                    requestDTO.genre(),
+                    requestDTO.fileName(),
+                    requestDTO.pictureName());
             responseDTO.setMessage(SONG_WAS_CREATED);
             return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
