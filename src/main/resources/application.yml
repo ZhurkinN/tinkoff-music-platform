@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/music-platform
+    url: jdbc:postgresql://localhost:5432/tinkofMusic
     username: postgres
-    password: g12nokona
+    password: 0000
   jpa:
     hibernate:
       ddl-auto: update
