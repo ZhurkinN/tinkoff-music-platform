@@ -12,9 +12,9 @@ public class LoggingConfiguration {
     public CommonsRequestLoggingFilter requestLoggingFilter(){
         CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
 
-        loggingFilter.setIncludeClientInfo(true);
+        loggingFilter.setIncludeClientInfo(false);
         loggingFilter.setIncludeHeaders(true);
-        loggingFilter.setIncludePayload(true);
+        loggingFilter.setIncludePayload(false);
         loggingFilter.setMaxPayloadLength(64000);
         loggingFilter.setIncludeQueryString(true);
 
