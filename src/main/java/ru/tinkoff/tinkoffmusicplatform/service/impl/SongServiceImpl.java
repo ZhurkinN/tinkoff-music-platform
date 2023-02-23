@@ -67,7 +67,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void save(Long id,
+    public Song save(Long id,
                      String title,
                      String author,
                      String genre) {
@@ -77,7 +77,7 @@ public class SongServiceImpl implements SongService {
                 .setAuthor(author)
                 .setGenre(genre);
 
-        songRepository.save(song);
+        return songRepository.save(song);
     }
 
     @Override

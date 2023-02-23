@@ -18,7 +18,7 @@ public interface SongService {
 
     List<Song> getSongsSortedByGenre();
 
-    void save(Long id,
+    Song save(Long id,
               String title,
               String author,
               String genre);

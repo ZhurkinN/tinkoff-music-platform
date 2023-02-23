@@ -1,9 +1,7 @@
 package ru.tinkoff.tinkoffmusicplatform.data;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
 
@@ -12,7 +10,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Accessors(chain = true)
 @Table(name = "song")
 public class Song {
