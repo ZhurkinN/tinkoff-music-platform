@@ -1,15 +1,14 @@
 package ru.tinkoff.tinkoffmusicplatform.service.impl;
 
-import io.minio.GetObjectArgs;
-import io.minio.ListObjectsArgs;
-import io.minio.MinioClient;
-import io.minio.Result;
+import io.minio.*;
+import io.minio.errors.*;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.FileDTO;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
@@ -17,7 +16,10 @@ import ru.tinkoff.tinkoffmusicplatform.service.MinioService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,41 +61,64 @@ public class MinioServiceImpl implements MinioService {
 
         return objects;
     }
-
     @Override
-    public void getSongFilesById(Long songId) throws FileNotFoundException {
-
+    public File getSongsPicture(Long songId) throws Exception {
         Optional<Song> song = songRepository.findById(songId);
-        String fileName;
         String pictureName;
-
         if (song.isPresent()) {
-            fileName = song.get().getFileName();
             pictureName = song.get().getPictureName();
         } else {
             throw new FileNotFoundException(SONG_WITH_THIS_ID_NOT_FOUND);
         }
-
-        getFile(fileName);
-        getFile(pictureName);
+        return getFile(pictureName);
     }
+
+    @Override
+    public File getSongsFile(Long songId) throws Exception {
+        Optional<Song> song = songRepository.findById(songId);
+        String fileName;
+        if (song.isPresent()) {
+            fileName = song.get().getFileName();
+        } else {
+            throw new FileNotFoundException(SONG_WITH_THIS_ID_NOT_FOUND);
+        }
+        return getFile(fileName);
+    }
+
+    @Override
+    public void saveSongFiles(MultipartFile songInputFile, MultipartFile pictureInputFile) throws Exception {
+        putFile(songInputFile);
+        putFile(pictureInputFile);
+    }
+
 
     @Override
     public String getPreSignedUrl(String fileName) {
         return "http://localhost:8080/file/".concat(fileName);
     }
 
-    private void getFile(String fileName) {
+    private File getFile(String fileName) {
         try (InputStream stream = minioClient.getObject(
                 GetObjectArgs.builder()
                         .bucket(bucketName)
                         .object(fileName)
                         .build())) {
 
-            File targetFile = new File("src/main/resources/songs/" + fileName);
+            File targetFile = new File(fileName);
             FileUtils.copyInputStreamToFile(stream, targetFile);
+            return targetFile;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    private void putFile(MultipartFile file) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        minioClient.putObject(
+                PutObjectArgs.builder()
+                        .bucket(bucketName)
+                        .object(file.getOriginalFilename())
+                        .stream(file.getInputStream(), -1, 10485760)
+                        .contentType(file.getContentType())
+                        .build());
     }
 }

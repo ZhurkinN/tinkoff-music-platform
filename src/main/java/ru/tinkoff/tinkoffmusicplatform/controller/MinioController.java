@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.FileDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
 import ru.tinkoff.tinkoffmusicplatform.service.MinioService;
 
-import java.io.File;
 import java.util.List;
+
+import static ru.tinkoff.tinkoffmusicplatform.constants.ResultMessageKeeper.FILES_WERE_SAVED;
 
 @Slf4j
 @RestController
@@ -29,11 +31,11 @@ public class MinioController {
 
         ResponseMessageDTO responseDTO = new ResponseMessageDTO();
         try {
-            minioService.getSongFilesById(songId);
+            minioService.getSongsFile(songId);
             responseDTO.setMessage("OK");
             return ResponseEntity.ok(responseDTO);
-        } catch (Exception e) {
 
+        } catch (Exception e) {
             responseDTO.setMessage(e.getMessage());
             return ResponseEntity
                     .badRequest()
@@ -42,9 +44,20 @@ public class MinioController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadFiles(@RequestParam File pictureFile,
-                                                          @RequestParam File songFile) {
+    public ResponseEntity<ResponseMessageDTO> saveSongFiles(@RequestBody MultipartFile songFile,
+                                                            @RequestBody MultipartFile pictureFile) {
+        ResponseMessageDTO responseDTO = new ResponseMessageDTO();
+        try {
+            minioService.saveSongFiles(songFile, pictureFile);
+            responseDTO.setMessage(FILES_WERE_SAVED);
+            return ResponseEntity.ok(responseDTO);
 
-        return ResponseEntity.ok("OK");
+        } catch (Exception e) {
+            responseDTO.setMessage(e.getMessage());
+            return ResponseEntity
+                    .badRequest()
+                    .body(responseDTO);
+        }
     }
+
 }
