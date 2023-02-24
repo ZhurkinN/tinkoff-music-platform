@@ -2,14 +2,12 @@ package unit.songsTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.stereotype.Service;
+
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
 import ru.tinkoff.tinkoffmusicplatform.service.impl.SongServiceImpl;
@@ -32,35 +30,30 @@ public class SongServiceTest {
 
     private Song song;
 
+    private final long id;
+
+    private String title;
+
+    private String author;
+
+    private String genre;
+
+    {
+        id = 1L;
+        title = "Под небом салатовым";
+        author = "ATL";
+        genre = "Rap";
+    }
+
     @BeforeEach
     public void setup() {
+
         song = Song.builder()
-                .id(1L)
-                .title("Под небом салатовым")
-                .author("ATL")
-                .genre("Rap")
+                .id(id)
+                .title(title)
+                .author(author)
+                .genre(genre)
                 .build();
-    }
-
-    @Test
-    public void getSongByIdTest() {
-
-        when(songRepository.findById(1L)).thenReturn(Optional.of(song));
-
-        Song savedSong = songService.getSongById(song.getId());
-
-        assertThat(savedSong).isNotNull();
-    }
-
-    @Test
-    public void getSongByGenreTest() {
-
-        when(songRepository.findByGenre("Rap")).thenReturn(List.of(song));
-
-        List<Song> songList = songService.getSongsByGenre("Rap");
-
-        assertThat(songList).isNotNull();
-
     }
 
     @Test
@@ -77,8 +70,46 @@ public class SongServiceTest {
 
         List<Song> songList = songService.getAllSongs();
 
-        assertThat(songList).isNotNull();
+        assertThat(songList).isNotNull().isNotEmpty();
+    }
 
+    @Test
+    public void getSongByIdTest() {
+
+        when(songRepository.findById(id)).thenReturn(Optional.of(song));
+
+        Song savedSong = songService.getSongById(song.getId());
+
+        assertThat(savedSong).isNotNull();
+    }
+
+    @Test
+    public void getSongsByTitle() {
+
+        when(songRepository.findByTitle(title)).thenReturn(List.of(song));
+
+        List<Song> songList = songService.getSongsByTitle(song.getTitle());
+
+        assertThat(songList).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    public void getSongsByAuthor() {
+        when(songRepository.findByAuthor(author)).thenReturn(List.of(song));
+
+        List<Song> songList = songService.getSongsByAuthor(song.getAuthor());
+
+        assertThat(songList).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    public void getSongsByGenreTest() {
+
+        when(songRepository.findByGenre(genre)).thenReturn(List.of(song));
+
+        List<Song> songList = songService.getSongsByGenre("Rap");
+
+        assertThat(songList).isNotNull().isNotEmpty();
     }
 
     @Test
@@ -89,19 +120,17 @@ public class SongServiceTest {
         Song savedSong = songService.save(song.getId(), song.getTitle(), song.getAuthor(), song.getGenre());
 
         assertEquals(song, savedSong);
+        assertThat(savedSong).isNotNull();
     }
 
-
-    // Тут момент с тем, что мы удаляем через дефолтный метод репозитория, а не через deleteById
     @Test
     public void deleteSongByIdTest() {
 
-        when(songRepository.findById(1L)).thenReturn(Optional.of(song));
+        when(songRepository.findById(id)).thenReturn(Optional.of(song));
         doNothing().when(songRepository).delete(song);
 
         songService.deleteById(1L);
 
         verify(songRepository, times(0)).deleteById(song.getId());
-
     }
 }
