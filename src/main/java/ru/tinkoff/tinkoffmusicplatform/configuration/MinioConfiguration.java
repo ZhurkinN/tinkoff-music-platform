@@ -22,8 +22,8 @@ public class MinioConfiguration {
     @Primary
     public MinioClient minioClient() {
         return new MinioClient.Builder()
-                .credentials(accessKey, secretKey)
                 .endpoint(minioUrl)
+                .credentials(accessKey, secretKey)
                 .build();
     }
 }
