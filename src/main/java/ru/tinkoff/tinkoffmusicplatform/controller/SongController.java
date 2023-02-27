@@ -34,17 +34,15 @@ public class SongController {
         List<Song> songs = songService.getAllSongs();
         List<SongListDTO> dtoList = SongsListMapper.mapSongsListToDTO(songs);
 
-        try {
-            for (SongListDTO dto : dtoList) {
+        for (SongListDTO dto : dtoList) {
+            try {
                 File file = minioService.getSongsPicture(dto.getId());
                 dto.setPictureFile(Files.readAllBytes(file.toPath()));
+            } catch (Exception ignored) {
             }
-
-            return ResponseEntity.ok(dtoList);
-        } catch (Exception e) {
-            //МЕСТО ДЛЯ ЛОГГИРОВАНИЯ
-            return ResponseEntity.ok(dtoList);
         }
+
+        return ResponseEntity.ok(dtoList);
     }
 
     @GetMapping("/{id}")

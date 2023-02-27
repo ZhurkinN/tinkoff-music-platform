@@ -30,7 +30,7 @@ minio:
     secret:
       g12nokona
 
-  logging:
+logging:
   pattern:
     file: "%d %-5level [%thread] %logger : %msg%n"
   level:

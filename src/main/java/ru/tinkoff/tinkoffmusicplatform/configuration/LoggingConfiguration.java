@@ -9,7 +9,7 @@ public class LoggingConfiguration {
 
 
     @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter(){
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
         CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
 
         loggingFilter.setIncludeClientInfo(false);
@@ -18,6 +18,7 @@ public class LoggingConfiguration {
         loggingFilter.setMaxPayloadLength(64000);
         loggingFilter.setIncludeQueryString(true);
 
-        return loggingFilter;}
-    
+        return loggingFilter;
+    }
+
 }

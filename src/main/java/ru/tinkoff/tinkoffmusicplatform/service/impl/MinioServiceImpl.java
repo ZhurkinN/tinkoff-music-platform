@@ -61,6 +61,7 @@ public class MinioServiceImpl implements MinioService {
 
         return objects;
     }
+
     @Override
     public File getSongsPicture(Long songId) throws Exception {
         Optional<Song> song = songRepository.findById(songId);
