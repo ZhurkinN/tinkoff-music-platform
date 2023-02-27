@@ -1,12 +1,21 @@
-insert into song values (101, 'PUSSYKILLER', 'Хип-Хоп', 'Гори ясно');
-insert into song values (102, 'PUSSYKILLER', 'Хип-Хоп', 'Поздно');
-insert into song values (103, 'Markul', 'Хип-Хоп', 'Blues');
-insert into song values (104, 'Markul', 'Хип-Хоп', 'Moulin rouge');
-insert into song values (105, 'ХуйЗнает', 'Хип-Хоп', 'Гори ясно');
-insert into song values (106, 'PUSSYKILLER', 'Хип-Хоп', 'Гори ясно');
-insert into song values (107, 'DIMA ROUX', 'Хип-Хоп', '0 to 100');
-insert into song values (108, 'PHARAOH', 'Хип-Хоп', 'Эми');
-insert into song values (109, 'PHARAOH', 'Хип-Хоп', 'В ванне');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (101, 'PUSSYKILLER', 'Хип-Хоп', 'Гори ясно', 'Гори_ясно.mp3', '1.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (102, 'PUSSYKILLER', 'Хип-Хоп', 'Поздно', 'Поздно.mp3', '2.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (103, 'Markul', 'Хип-Хоп', 'Blues', 'Blues.mp3', '3.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (104, 'Markul', 'Хип-Хоп', 'Moulin rouge', 'Rouge.mp3', '4.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (105, 'ХуйЗнает', 'Хип-Хоп', 'Гори ясно', 'Гори_ясно2.mp3', '5.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (106, 'PUSSYKILLER', 'Франция', 'Гори ясно', 'Франция.mp3', '6.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (107, 'DIMA ROUX', 'Хип-Хоп', '0 to 100', '0to100.mp3', '7.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (108, 'PHARAOH', 'Хип-Хоп', 'Эми', 'Emi.mp3', '8.png');
+insert into song (id, author, genre, title, file_name, picture_name)
+values (109, 'PHARAOH', 'Хип-Хоп', 'В ванне', 'Bath.mp3', '9.png');
 insert into playlist values (101,'Хип-хоп треки, выходившие в 2023 году','Хип-хоп 2023');
 insert into playlist values (102,'Хип-хоп треки, выходившие в 2022 году','Хип-хоп 2022');
 insert into playlist values (103,'Хип-хоп треки, выходившие в 2021 году','Хип-хоп 2021');
