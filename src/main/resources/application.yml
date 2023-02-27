@@ -14,6 +14,9 @@ spring:
   sql:
     init:
       mode: always
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 minio:
   url:
@@ -26,4 +29,12 @@ minio:
       zhurkin
     secret:
       g12nokona
+
+  logging:
+  pattern:
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    web: trace
+  file:
+    name: application-debug.log
 
