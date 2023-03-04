@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
-import ru.tinkoff.tinkoffmusicplatform.dto.request.InteractWithSongDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.request.SongBodyDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.SongListDTO;
@@ -12,8 +11,6 @@ import ru.tinkoff.tinkoffmusicplatform.mapper.SongsListMapper;
 import ru.tinkoff.tinkoffmusicplatform.service.MinioService;
 import ru.tinkoff.tinkoffmusicplatform.service.SongService;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.util.List;
 
 import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.SONG_NOT_ADDED;
@@ -33,14 +30,7 @@ public class SongController {
     public ResponseEntity<List<SongListDTO>> getAllSongs() {
         List<Song> songs = songService.getAllSongs();
         List<SongListDTO> dtoList = SongsListMapper.mapSongsListToDTO(songs);
-
-        for (SongListDTO dto : dtoList) {
-            try {
-                File file = minioService.getSongsPicture(dto.getId());
-                dto.setPictureFile(Files.readAllBytes(file.toPath()));
-            } catch (Exception ignored) {
-            }
-        }
+        setSongsPictures(dtoList);
 
         return ResponseEntity.ok(dtoList);
     }
@@ -54,6 +44,8 @@ public class SongController {
     public ResponseEntity<List<SongListDTO>> getSongsByTitle(@PathVariable("title") String title) {
         List<Song> songs = songService.getSongsByTitle(title);
         List<SongListDTO> dtoList = SongsListMapper.mapSongsListToDTO(songs);
+        setSongsPictures(dtoList);
+
         return ResponseEntity.ok(dtoList);
     }
 
@@ -61,6 +53,8 @@ public class SongController {
     public ResponseEntity<List<SongListDTO>> getSongsByAuthor(@PathVariable("author") String author) {
         List<Song> songs = songService.getSongsByAuthor(author);
         List<SongListDTO> dtoList = SongsListMapper.mapSongsListToDTO(songs);
+        setSongsPictures(dtoList);
+
         return ResponseEntity.ok(dtoList);
     }
 
@@ -68,6 +62,8 @@ public class SongController {
     public ResponseEntity<List<SongListDTO>> getSongsByGenre(@PathVariable("genre") String genre) {
         List<Song> songs = songService.getSongsByGenre(genre);
         List<SongListDTO> dtoList = SongsListMapper.mapSongsListToDTO(songs);
+        setSongsPictures(dtoList);
+
         return ResponseEntity.ok(dtoList);
     }
 
@@ -75,6 +71,8 @@ public class SongController {
     public ResponseEntity<List<SongListDTO>> getSortedSongs() {
         List<Song> songs = songService.getSongsSortedByGenre();
         List<SongListDTO> dtoList = SongsListMapper.mapSongsListToDTO(songs);
+        setSongsPictures(dtoList);
+
         return ResponseEntity.ok(dtoList);
     }
 
@@ -100,12 +98,12 @@ public class SongController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<ResponseMessageDTO> deleteSong(@RequestBody InteractWithSongDTO requestDTO) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseMessageDTO> deleteSong(@PathVariable Long id) {
         ResponseMessageDTO responseDTO = new ResponseMessageDTO();
 
         try {
-            songService.deleteById(requestDTO.getSongId());
+            songService.deleteById(id);
             responseDTO.setMessage(SONG_WAS_DELETED);
             return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
@@ -114,6 +112,16 @@ public class SongController {
             return ResponseEntity
                     .badRequest()
                     .body(responseDTO);
+        }
+    }
+
+    private void setSongsPictures(List<SongListDTO> dtoList) {
+        for (SongListDTO dto : dtoList) {
+            try {
+                String picturePath = minioService.getSongsPicturePath(dto.getId());
+                dto.setPicturePath(picturePath);
+            } catch (Exception ignored) {
+            }
         }
     }
 

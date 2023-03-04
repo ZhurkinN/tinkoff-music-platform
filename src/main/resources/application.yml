@@ -20,7 +20,7 @@ spring:
 
 minio:
   url:
-    http://127.0.0.1:9000
+    http://localhost:9000
   bucket:
     name:
       tinkoff-music

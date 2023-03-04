@@ -15,5 +15,6 @@ public class SongListDTO {
     private String title;
     private String author;
     private String genre;
-    private byte[] pictureFile;
+    private String picturePath;
+    private String songPath;
 }

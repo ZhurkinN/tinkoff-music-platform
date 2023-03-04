@@ -63,7 +63,7 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public File getSongsPicture(Long songId) throws Exception {
+    public String getSongsPicturePath(Long songId) throws Exception {
         Optional<Song> song = songRepository.findById(songId);
         String pictureName;
         if (song.isPresent()) {
@@ -71,11 +71,11 @@ public class MinioServiceImpl implements MinioService {
         } else {
             throw new FileNotFoundException(SONG_WITH_THIS_ID_NOT_FOUND);
         }
-        return getFile(pictureName);
+        return getFilePath(pictureName);
     }
 
     @Override
-    public File getSongsFile(Long songId) throws Exception {
+    public String getSongsFilePath(Long songId) throws Exception {
         Optional<Song> song = songRepository.findById(songId);
         String fileName;
         if (song.isPresent()) {
@@ -83,7 +83,7 @@ public class MinioServiceImpl implements MinioService {
         } else {
             throw new FileNotFoundException(SONG_WITH_THIS_ID_NOT_FOUND);
         }
-        return getFile(fileName);
+        return getFilePath(fileName);
     }
 
     @Override
@@ -98,16 +98,17 @@ public class MinioServiceImpl implements MinioService {
         return "http://localhost:8080/file/".concat(fileName);
     }
 
-    private File getFile(String fileName) {
+    private String getFilePath(String fileName) {
         try (InputStream stream = minioClient.getObject(
                 GetObjectArgs.builder()
                         .bucket(bucketName)
                         .object(fileName)
                         .build())) {
 
-            File targetFile = new File(fileName);
+            String path = "src/main/resources/songs/" + fileName;
+            File targetFile = new File(path);
             FileUtils.copyInputStreamToFile(stream, targetFile);
-            return targetFile;
+            return path;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

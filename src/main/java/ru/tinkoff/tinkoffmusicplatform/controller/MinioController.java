@@ -31,7 +31,7 @@ public class MinioController {
 
         ResponseMessageDTO responseDTO = new ResponseMessageDTO();
         try {
-            minioService.getSongsFile(songId);
+            minioService.getSongsFilePath(songId);
             responseDTO.setMessage("OK");
             return ResponseEntity.ok(responseDTO);
 
