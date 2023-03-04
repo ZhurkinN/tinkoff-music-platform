@@ -1,5 +1,5 @@
 insert into song (id, author, genre, title, file_name, picture_name)
-values (101, 'PUSSYKILLER', 'Хип-Хоп', 'Гори ясно', 'Гори_ясно.mp3', '1.png');
+values (101, 'PUSSYKILLER', 'Хип-Хоп', 'Гори ясно', 'Гори_ясно.mp3', '1.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
 values (102, 'PUSSYKILLER', 'Хип-Хоп', 'Поздно', 'Поздно.mp3', '2.png');
 insert into song (id, author, genre, title, file_name, picture_name)
