@@ -81,6 +81,7 @@ public class PlaylistServiceImpl implements PlaylistService {
             if (!playlistSongsRepository
                     .getPlaylistSongsByPlaylist(playlist.get())
                     .isEmpty()) {
+                int lastPosition = playlistSongsRepository.getLastSongPosition(playlistId);
                 newSongPosition = playlistSongsRepository.getLastSongPosition(playlistId) + 1;
             }
 
@@ -89,7 +90,9 @@ public class PlaylistServiceImpl implements PlaylistService {
                     .setPlaylist(playlist.get())
                     .setSongPosition(newSongPosition);
 
-            playlistSongsRepository.save(playlistSongs);
+            PlaylistSongs test = playlistSongsRepository.save(playlistSongs);
+
+            test.getSongPosition();
         } else {
             throw new SongNotFoundException(SONG_OR_PLAYLIST_NOT_FOUND);
         }
