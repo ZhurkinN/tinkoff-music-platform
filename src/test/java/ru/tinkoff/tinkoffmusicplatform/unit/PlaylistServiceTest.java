@@ -127,7 +127,6 @@ public class PlaylistServiceTest {
         lenient().when(songRepository.findById(song1.getId())).thenReturn(Optional.of(song1));
         when(songRepository.findById(song2.getId())).thenReturn(Optional.of(song2));
 
-        when(playlistSongsRepository.save(any(PlaylistSongs.class))).thenReturn(playlistSongs);
         when(playlistSongsRepository.getPlaylistSongsByPlaylist(playlist)).thenReturn(List.of(playlistSongs));
         lenient().when(playlistSongsRepository.findBySongIdAndPlaylistId(song1.getId(), playlistId))
                 .thenReturn(Optional.of(playlistSongs));
@@ -139,7 +138,7 @@ public class PlaylistServiceTest {
         System.out.println(songPosition);
         PlaylistSongs playlistSongs1 = playlistService.addPlaylistsSong(song2.getId(), playlistId);
         assertEquals(songPosition + 1, playlistSongs1.getSongPosition());
-        // verify(playlistSongsRepository, times(1)).save(playlistSongs);
+        verify(playlistSongsRepository, times(1)).save(any(PlaylistSongs.class));
         System.out.println(playlistSongsRepository.getPlaylistSongsByPlaylist(playlist));
 
     }

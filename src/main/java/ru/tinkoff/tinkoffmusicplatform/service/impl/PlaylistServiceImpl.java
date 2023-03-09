@@ -91,6 +91,7 @@ public class PlaylistServiceImpl implements PlaylistService {
                     .setSongPosition(newSongPosition);
 
             test = playlistSongsRepository.save(playlistSongs);
+            test = playlistSongs;
         } else {
             throw new SongNotFoundException(SONG_OR_PLAYLIST_NOT_FOUND);
         }
