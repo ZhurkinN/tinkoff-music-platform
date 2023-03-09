@@ -1,17 +1,15 @@
 package ru.tinkoff.tinkoffmusicplatform.unit;
 
-import java.util.List;
-import java.util.Optional;
-
+import org.aspectj.util.Reflection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import ru.tinkoff.tinkoffmusicplatform.data.Playlist;
 import ru.tinkoff.tinkoffmusicplatform.data.PlaylistSongs;
 import ru.tinkoff.tinkoffmusicplatform.data.Song;
@@ -23,10 +21,14 @@ import ru.tinkoff.tinkoffmusicplatform.repository.PlaylistSongsRepository;
 import ru.tinkoff.tinkoffmusicplatform.repository.SongRepository;
 import ru.tinkoff.tinkoffmusicplatform.service.impl.PlaylistServiceImpl;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatReflectiveOperationException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.*;
+import static ru.tinkoff.tinkoffmusicplatform.constants.ErrorMessageKeeper.SONG_NOT_FOUND_IN_PLAYLIST;
 
 @ExtendWith(MockitoExtension.class)
 public class PlaylistServiceTest {
@@ -42,15 +44,13 @@ public class PlaylistServiceTest {
 
     private Playlist playlist;
 
-    private Long playlistId = 1L;
+    private final Long playlistId = 1L;
 
     private Song song1;
 
     private Song song2;
 
     private PlaylistSongs playlistSongs;
-
-    private Long playlistSongsId = 1L;
 
     @BeforeEach
     public void setup() {
@@ -76,6 +76,7 @@ public class PlaylistServiceTest {
                 .genre("Rap")
                 .build();
 
+        Long playlistSongsId = 1L;
         playlistSongs = new PlaylistSongs(playlistSongsId, 1, song1, playlist);
     }
 
@@ -123,23 +124,24 @@ public class PlaylistServiceTest {
     @Test
     public void itShouldSaveSongToPlaylist() {
         when(playlistRepository.findById(playlistId)).thenReturn(Optional.of(playlist));
-        when(songRepository.findById(song1.getId())).thenReturn(Optional.of(song1));
+        lenient().when(songRepository.findById(song1.getId())).thenReturn(Optional.of(song1));
         when(songRepository.findById(song2.getId())).thenReturn(Optional.of(song2));
 
         when(playlistSongsRepository.save(any(PlaylistSongs.class))).thenReturn(playlistSongs);
         when(playlistSongsRepository.getPlaylistSongsByPlaylist(playlist)).thenReturn(List.of(playlistSongs));
-        when(playlistSongsRepository.findBySongIdAndPlaylistId(song1.getId(), playlistId))
+        lenient().when(playlistSongsRepository.findBySongIdAndPlaylistId(song1.getId(), playlistId))
                 .thenReturn(Optional.of(playlistSongs));
         when(playlistSongsRepository.findBySongIdAndPlaylistId(song2.getId(), playlistId))
                 .thenReturn(Optional.empty());
         when(playlistSongsRepository.getLastSongPosition(playlistId)).thenReturn(1);
 
         int songPosition = playlistSongs.getSongPosition();
+        System.out.println(songPosition);
+        PlaylistSongs playlistSongs1 = playlistService.addPlaylistsSong(song2.getId(), playlistId);
+        assertEquals(songPosition + 1, playlistSongs1.getSongPosition());
+        // verify(playlistSongsRepository, times(1)).save(playlistSongs);
+        System.out.println(playlistSongsRepository.getPlaylistSongsByPlaylist(playlist));
 
-        playlistService.addPlaylistsSong(song2.getId(), playlistId);
-
-        //assertEquals(songPosition + 1, playlistSongs.getSongPosition());
-        verify(playlistSongsRepository, times(1)).save(playlistSongs);
     }
 
     /**
@@ -168,9 +170,8 @@ public class PlaylistServiceTest {
         when(playlistSongsRepository.getPlaylistSongsByPlaylistAndSong(playlist, song2))
                 .thenReturn(List.of());
 
-        SongNotFoundException exception = Assertions.assertThrows(SongNotFoundInPlaylistException.class, () -> {
-            playlistService.deletePlaylistSong(song2.getId(), playlistId);
-        });
+        SongNotFoundException exception = Assertions.assertThrows(SongNotFoundInPlaylistException.class,
+                () -> playlistService.deletePlaylistSong(song2.getId(), playlistId));
 
         assertEquals(SONG_NOT_FOUND_IN_PLAYLIST, exception.getMessage());
     }

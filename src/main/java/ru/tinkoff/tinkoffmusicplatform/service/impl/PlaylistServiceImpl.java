@@ -66,10 +66,11 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public void addPlaylistsSong(Long songId,
-                                 Long playlistId) {
+    public PlaylistSongs addPlaylistsSong(Long songId,
+                                          Long playlistId) {
         Optional<Playlist> playlist = playlistRepository.findById(playlistId);
         Optional<Song> song = songRepository.findById(songId);
+        PlaylistSongs test;
 
         if (playlist.isPresent() && song.isPresent()) {
 
@@ -81,7 +82,6 @@ public class PlaylistServiceImpl implements PlaylistService {
             if (!playlistSongsRepository
                     .getPlaylistSongsByPlaylist(playlist.get())
                     .isEmpty()) {
-                int lastPosition = playlistSongsRepository.getLastSongPosition(playlistId);
                 newSongPosition = playlistSongsRepository.getLastSongPosition(playlistId) + 1;
             }
 
@@ -90,13 +90,11 @@ public class PlaylistServiceImpl implements PlaylistService {
                     .setPlaylist(playlist.get())
                     .setSongPosition(newSongPosition);
 
-            PlaylistSongs test = playlistSongsRepository.save(playlistSongs);
-
-            test.getSongPosition();
+            test = playlistSongsRepository.save(playlistSongs);
         } else {
             throw new SongNotFoundException(SONG_OR_PLAYLIST_NOT_FOUND);
         }
-
+        return test;
     }
 
     @Override
