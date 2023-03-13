@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.FileDTO;
+import ru.tinkoff.tinkoffmusicplatform.dto.response.FilesPathDTO;
 import ru.tinkoff.tinkoffmusicplatform.dto.response.ResponseMessageDTO;
 import ru.tinkoff.tinkoffmusicplatform.service.MinioService;
 
@@ -27,16 +28,19 @@ public class MinioController {
     }
 
     @GetMapping("/{songId}")
-    public ResponseEntity<ResponseMessageDTO> getSongFiles(@PathVariable Long songId) {
+    public ResponseEntity<FilesPathDTO> getSongFiles(@PathVariable Long songId) {
 
-        ResponseMessageDTO responseDTO = new ResponseMessageDTO();
+        FilesPathDTO responseDTO = new FilesPathDTO();
         try {
-            minioService.getSongsFilePath(songId);
-            responseDTO.setMessage("OK");
+            String songPath = minioService.getSongsFilePath(songId);
+            String picturePath = minioService.getSongsPicturePath(songId);
+            responseDTO.setSongPath(songPath);
+            responseDTO.setPicturePath(picturePath);
             return ResponseEntity.ok(responseDTO);
 
         } catch (Exception e) {
-            responseDTO.setMessage(e.getMessage());
+            responseDTO.setPicturePath(null);
+            responseDTO.setSongPath(null);
             return ResponseEntity
                     .badRequest()
                     .body(responseDTO);
