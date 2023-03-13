@@ -9,7 +9,7 @@ values (104, 'Travis Scott', 'Hip-Hop', 'Sicko mode', 'sicko_mode.mp3', 'sicko_m
 insert into song (id, author, genre, title, file_name, picture_name)
 values (105, 'Billie Eilish', 'Pop', 'Lovely', 'lovely.mp3', 'lovely.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (106, 'DaBaby', 'Hip-Hop', 'Rockstart', 'rockstar.mp3', 'rockstar.jpg');
+values (106, 'DaBaby', 'Hip-Hop', 'Rockstar', 'rockstar.mp3', 'rockstar.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
 values (107, 'Rick Astly', 'Dance-pop', 'Never gonna give your up', 'never_gonna_give_your_up.mp3', 'never_gonna_give_your_up.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
