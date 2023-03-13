@@ -1,21 +1,21 @@
 insert into song (id, author, genre, title, file_name, picture_name)
-values (101, 'PUSSYKILLER', 'Хип-Хоп', 'Гори ясно', 'Гори_ясно.mp3', '1.jpg');
+values (101, 'ATL', 'Hip-Hop', 'Under the green sky', 'under_the_green_sky.mp3', 'under_the_green_sky.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (102, 'PUSSYKILLER', 'Хип-Хоп', 'Поздно', 'Поздно.mp3', '2.png');
+values (102, 'OG BUDA', 'Hip-Hop', 'Big boy slime', 'big_boy_slime.mp3', 'big_boy_slime.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (103, 'Markul', 'Хип-Хоп', 'Blues', 'Blues.mp3', '3.png');
+values (103, 'Markul', 'Hip-Hop', 'Blues', 'blues.mp3', 'blues.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (104, 'Markul', 'Хип-Хоп', 'Moulin rouge', 'Rouge.mp3', '4.png');
+values (104, 'Travis Scott', 'Hip-Hop', 'Sicko mode', 'sicko_mode.mp3', 'sicko_mode.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (105, 'ХуйЗнает', 'Хип-Хоп', 'Гори ясно', 'Гори_ясно2.mp3', '5.png');
+values (105, 'Billie Eilish', 'Pop', 'Lovely', 'lovely.mp3', 'lovely.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (106, 'PUSSYKILLER', 'Франция', 'Гори ясно', 'Франция.mp3', '6.png');
+values (106, 'DaBaby', 'Hip-Hop', 'Rockstart', 'rockstar.mp3', 'rockstar.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (107, 'DIMA ROUX', 'Хип-Хоп', '0 to 100', '0to100.mp3', '7.png');
+values (107, 'Rick Astly', 'Dance-pop', 'Never gonna give your up', 'never_gonna_give_your_up.mp3', 'never_gonna_give_your_up.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (108, 'PHARAOH', 'Хип-Хоп', 'Эми', 'Emi.mp3', '8.png');
+values (108, 'Queen', 'Rock', 'We will rock you', 'we_will_rock_you.mp3', 'we_will_rock_you.jpg');
 insert into song (id, author, genre, title, file_name, picture_name)
-values (109, 'PHARAOH', 'Хип-Хоп', 'В ванне', 'Bath.mp3', '9.png');
+values (109, 'Good Life', 'Rock', 'One Republic', 'one_republic.mp3', 'one_republic.jpg');
 insert into playlist values (101,'Хип-хоп треки, выходившие в 2023 году','Хип-хоп 2023');
 insert into playlist values (102,'Хип-хоп треки, выходившие в 2022 году','Хип-хоп 2022');
 insert into playlist values (103,'Хип-хоп треки, выходившие в 2021 году','Хип-хоп 2021');
