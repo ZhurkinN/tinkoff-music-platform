@@ -21,7 +21,9 @@ public interface SongService {
     Song save(Long id,
               String title,
               String author,
-              String genre);
+              String genre,
+              String fileName,
+              String pictureName);
 
     void deleteById(Long id);
 }

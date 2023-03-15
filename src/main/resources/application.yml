@@ -14,16 +14,27 @@ spring:
   sql:
     init:
       mode: always
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 minio:
   url:
-    http://127.0.0.1:9000
+    http://minio:9000
   bucket:
     name:
-      tinkoff-music-platform
+      tinkoff-music
   access:
     key:
-      minioadmin
+      zhurkin
     secret:
-        minioadmin
+      g12nokona
+
+logging:
+  pattern:
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    web: trace
+  file:
+    name: application-debug.log
 

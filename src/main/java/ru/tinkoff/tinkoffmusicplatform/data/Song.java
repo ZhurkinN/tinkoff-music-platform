@@ -30,6 +30,12 @@ public class Song {
     @Column(name = "genre", nullable = false)
     private String genre;
 
+    @Column(name = "file_name", nullable = false)
+    private String fileName;
+
+    @Column(name = "picture_name", nullable = false)
+    private String pictureName;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
