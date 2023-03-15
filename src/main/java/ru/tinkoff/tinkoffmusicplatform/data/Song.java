@@ -11,8 +11,8 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
+@Builder
 @Accessors(chain = true)
 @Table(name = "song")
 public class Song {
