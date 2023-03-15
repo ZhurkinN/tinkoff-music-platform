@@ -1,6 +1,7 @@
 package ru.tinkoff.tinkoffmusicplatform.data;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Setter
 @Accessors(chain = true)
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class PlaylistSongs {
 
     @Id
