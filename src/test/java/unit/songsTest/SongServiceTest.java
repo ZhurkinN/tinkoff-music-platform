@@ -126,7 +126,10 @@ public class SongServiceTest {
 
         when(songRepository.save(song)).thenReturn(song);
 
-        Song savedSong = songService.save(song.getId(), song.getTitle(), song.getAuthor(), song.getGenre());
+        Song savedSong
+                = songService
+                .save(song.getId(), song.getTitle()
+                        , song.getAuthor(), song.getGenre(), "", "");
 
         assertEquals(song, savedSong);
         assertThat(savedSong).isNotNull();
